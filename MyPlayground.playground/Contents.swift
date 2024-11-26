@@ -123,9 +123,45 @@ var j = 0
 
 repeat {
     print("repeat")
+    j+=1
 } while j < 10
 
 /*
  옵셔널
  */
+
+var optionalName: String? = nil
+var optionalName2: String! = nil
+
+
+print(optionalName ?? "default")
+
+/*
+구조체
+ */
+
+struct Profile {
+    var name: String
+    let college: String = "Korea University"
+    
+    func printProfile() {
+        print("\(name) : \(college)")
+    }
+    
+    static func printManual() {
+        print("학생이름과 학교명을 출력 하는 구조체")
+    }
+}
+
+Profile.printManual()
+
+let profile = Profile(name: "김태호")
+
+profile.printProfile()
+
+//profile.name = "김태호2" 오류
+var profile2 = Profile(name: "김태호2")
+profile2.name = "김태호3"
+profile2.printProfile()
+
 
