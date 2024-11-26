@@ -82,3 +82,50 @@ print(sum(first: sum(first: 1, second: 2), second:sum(first:3, second:4)))
 var sumVariable : (Int, Int) -> Int = sum(first: second:)
 
 print("\(sumVariable(1, 2))")
+
+/*
+ 흐름 제어
+ switch, for, do-while,
+ */
+
+var count = 100
+switch count {
+    case 0:
+        print("swtich 0")
+    case 1..<100:
+        print("100미만")
+    case 100:
+        print("100")
+    case 101...Int.max:
+        print("100이상")
+    default:
+        print("무한대")
+}
+
+let array2 : [Int] = [1, 2, 3, 4, 5]
+let dic2 : [String: Int] = ["key": 100, "key2": 200]
+
+for i in array2 {
+    print(i)
+}
+
+for (key, value) in dic2 {
+    print("\(key) : \(value)")
+}
+
+var i = 0
+while i < 10 {
+    print(i)
+    i+=1
+}
+
+var j = 0
+
+repeat {
+    print("repeat")
+} while j < 10
+
+/*
+ 옵셔널
+ */
+
