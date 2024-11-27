@@ -2,8 +2,7 @@ import UIKit
 
 var greeting = "Hello, playground"
 
-
-class FirstClass {
+class TestClass {
     private var name: String
     var text: String {
         get {
@@ -23,10 +22,10 @@ class FirstClass {
     }
 }
 
-let firstClass = FirstClass(name: "John")
-firstClass.displayInfo()
+let testClass = TestClass(name: "John")
+testClass.displayInfo()
 
-dump(firstClass)
+dump(testClass)
 
 let sum : Int
 
@@ -46,7 +45,7 @@ print(aChar)
  Collection
  Array, Dictionary, Set
 */
-
+print("############## Collection ##############")
 var array: [Int] = [1, 2, 3, 4, 5]
 var intArray : Array<Int> = Array<Int>()
 
@@ -68,6 +67,7 @@ print(someDictionary)
 /*
  함수
  */
+print("############## 함수 ##############")
 func sum(_ a: Float, _ b: Float) -> Float {
     return a + b
 }
@@ -79,6 +79,7 @@ print(sum(first: sum(first: 1, second: 2), second:sum(first:3, second:4)))
 /*
  데이터 타입 함수
  */
+print("############## 데이터 타입 함수 ##############")
 var sumVariable : (Int, Int) -> Int = sum(first: second:)
 
 print("\(sumVariable(1, 2))")
@@ -87,7 +88,7 @@ print("\(sumVariable(1, 2))")
  흐름 제어
  switch, for, do-while,
  */
-
+print("############## 흐름 제어 ##############")
 var count = 100
 switch count {
     case 0:
@@ -129,7 +130,7 @@ repeat {
 /*
  옵셔널
  */
-
+print("############## 옵셔널 ##############")
 var optionalName: String? = nil
 var optionalName2: String! = nil
 
@@ -139,7 +140,7 @@ print(optionalName ?? "default")
 /*
 구조체
  */
-
+print("############## struct ##############")
 struct Profile {
     var name: String
     let college: String = "Korea University"
@@ -159,9 +160,46 @@ let profile = Profile(name: "김태호")
 
 profile.printProfile()
 
-//profile.name = "김태호2" 오류
+//profile.name = "김태호2" 오류 // let은 변수는 멤버 변수든 불가능
 var profile2 = Profile(name: "김태호2")
 profile2.name = "김태호3"
 profile2.printProfile()
+
+print("############## class ##############")
+class FirstClass {
+    var name: String
+    let college: String = "Korea University"
+    
+    init(name: String) {
+        self.name = name
+    }
+    
+    func printProfile() {
+        print("\(name) : \(college)")
+    }
+    
+    static func printManual() {
+        print("오버라이딩 불가 메소드")
+    }
+    func printManual2() {
+        print("오버라이딩 가능 메소드")
+    }
+}
+
+class SecondClass : FirstClass {
+    override func printManual2() {
+        print("오버라이딩 가능 메소드2222")
+    }
+}
+
+var firstClass = FirstClass(name: "김태호")
+firstClass.name = "김태호3"
+firstClass.printProfile()
+firstClass.printManual2()
+FirstClass.printManual()
+let secondClass = SecondClass(name: "김태호2")
+secondClass.name = "김태호4" // class var let과 관계없이  가능
+secondClass.printProfile()
+secondClass.printManual2()
 
 
