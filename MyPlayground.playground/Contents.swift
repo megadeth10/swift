@@ -464,4 +464,194 @@ personB.goOut()
 //    print("persongD: \(String(describing: personD ?? nil))")
 //}
 //deInitFUnction()
+
+
+/*
+ Assert, Guard
+ */
+print("############## Assert, Guard ##############")
+var someInt: Int = 0
+
+assert(someInt == 0, "someInt must be greater than 0")
+
+func funtionWithAssert(_ age : Int?) {
+    assert(age != nil, "age must not be nil")
+    
+    assert(age! > 0, "age must be less than 0")
+    assert(age! < 130, "age must be greater than 130")
+    
+    print("age: \(age!)")
+}
+
+funtionWithAssert(50)
+//funtionWithAssert(-1)
+
+func funtionWithGuard(_ age : Int?) {
+    guard let age else {
+        print("age must not be nil")
+        return
+    }
+    
+    guard age > 0 else {
+        print("age must be less than 0")
+        return
+    }
+}
+
+funtionWithGuard(20)
+funtionWithGuard(nil)
+
+var guardCount: Int = 0
+while true {
+    guard guardCount < 10 else {
+        break
+    }
+    
+    print("count: \(guardCount)")
+    guardCount += 1
+}
+
+
+/*
+ 프로토콜 : 구조체와 객체에 강제하는 기능 java interface
+ 유일한 다중 상속 가능
+ */
+print("############## 프로토콜 ##############")
+
+protocol Talkable {
+    var topic :String {
+        get set
+    }
+    
+    var language: String {
+        get
+    }
+    
+    func talk()
+    
+    init( topic: String, language: String)
+}
+
+struct Korean : Talkable {
+    var topic: String
+    let language: String
+    
+    func talk() {
+        print("\(topic) 을 \(language) 로 말합니다.")
+    }
+    
+    init(topic: String, language: String) {
+        self.topic = topic
+        self.language = language
+    }
+}
+
+protocol Media{
+    var name : String {
+        get set
+    }
+    
+    func play()
+}
+
+protocol Writeable {
+    var writeActive: Bool {
+        get
+    }
+    
+    func isActive() -> Bool
+}
+
+protocol Readable {
+    var readActive: Bool {
+        get
+    }
+    
+    func isActive() -> Bool
+}
+struct CompectDisk : Media, Writeable, Readable {
+    var writeActive: Bool = true
+    var readActive: Bool = true
+    var name: String
+    
+    init(_ name: String) {
+        self.name = name
+    }
+    
+    func play() {
+        print("\(name) 을 재생합니다. 읽기가 \(self.readActive) 쓰기가 \(self.writeActive)")
+    }
+    
+    func isActive() -> Bool {
+        return writeActive || readActive
+    }
+}
+
+var compectDisk = CompectDisk("CompectDisk")
+compectDisk.play()
+compectDisk.writeActive = false
+compectDisk.play()
+
+/*
+ 익스텐션 : 확장(구조체, 클래스, 열거형 프로토콜)등
+ */
+print("############## 익스텐션 ##############")
+
+extension Int {
+    var isEven: Bool {
+        return self.isMultiple(of: 2)
+    }
+    
+    var isOdd: Bool {
+        return !self.isEven
+    }
+    
+    func mutiply(by factor: Int) -> Int {
+        return self * factor
+    }
+}
+
+print("익스텐션 10.isEven  : \(10.isEven)")
+print("익스텐션 10.isOdd  : \(10.isOdd)")
+print("익스텐션 10 * 3  : \(10.mutiply(by: 3))")
+
+/*
+ 오류 제어
+ */
+print("############## 오류 제어 ##############")
+enum ErrorType: Error {
+    case Null
+    case NotFound
+    case InvalidValue
+}
+
+func operation2(_ value: Int?) throws -> Int {
+    guard value != nil else {
+        throw ErrorType.Null
+    }
+    
+    guard value! > 0 else {
+        throw ErrorType.InvalidValue
+    }
+    
+    print("operation2 value \(value!)")
+    return value!
+}
+
+var value3: Int? = -1
+do {
+    try operation2(value3)
+} catch ErrorType.Null {
+    print("ErrorType Null")
+} catch ErrorType.NotFound {
+    print("ErrorType NotFound")
+} catch ErrorType.InvalidValue {
+    print("ErrorType InvalidValue")
+}
+
+var result = try? operation2(nil)
+print("operation2 result: \(result ?? -1)")
+
+var result2 = try? operation2(3)
+print("operation2 result: \(result2 ?? -1)")
 print("end")
