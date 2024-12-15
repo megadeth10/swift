@@ -15,6 +15,9 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+        var image = UIImage(named: "app_icon")
+        image = resizeImageWithAspect(image: image!, targetSize: CGSize(width: 20, height: 20))
+        slider.setThumbImage(image, for: .normal)
     }
 
     @IBAction func valueChanged(_ sender: UISlider) {
@@ -28,6 +31,22 @@ class ViewController: UIViewController {
     
     @IBAction func touchResetButton(_ sender: UIButton) {
         slider.value = sliderDefaultValue
+    }
+    
+    func resizeImage(image: UIImage, targetSize: CGSize) -> UIImage? {
+        let renderer = UIGraphicsImageRenderer(size: targetSize)
+        return renderer.image { _ in
+            image.draw(in: CGRect(origin: .zero, size: targetSize))
+        }
+    }
+    
+    func resizeImageWithAspect(image: UIImage, targetSize: CGSize) -> UIImage? {
+        let widthRatio = targetSize.width / image.size.width
+        let heightRatio = targetSize.height / image.size.height
+        let scale = min(widthRatio, heightRatio) // Aspect Fit
+        let newSize = CGSize(width: image.size.width * scale, height: image.size.height * scale)
+
+        return resizeImage(image: image, targetSize: newSize)
     }
 }
 
